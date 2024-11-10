@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tablet Product Listing</title>
+  <style>
+    /* Basic reset and layout */
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f3f4f6;
+      margin: 0;
+      padding: 0;
+    }
+
+    .container {
+      max-width: 1024px;
+      margin: 50px auto;
+      background-color: #fff;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      border-radius: 8px;
+      overflow: hidden;
+    }
+
+    .product {
+      margin: 30px 0;
+      padding: 20px;
+      border-bottom: 1px solid #ddd;
+    }
+
+    /* Image Slider */
+    .image-slider {
+      position: relative;
+      width: 100%;
+      display: flex;
+      overflow: hidden;
+      height: 400px; /* Set a fixed height for consistency */
+    }
+
+    .slider-image {
+      width: 100%;
+      object-fit: contain;
+      flex-shrink: 0; /* Prevent images from shrinking */
+      transition: transform 0.3s ease-in-out;
+    }
+
+    .slider-buttons {
+      position: absolute;
+      top: 50%;
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      transform: translateY(-50%);
+      padding: 0 20px;
+    }
+
+    .slider-buttons button {
+      background-color: rgba(0, 0, 0, 0.5);
+      border: none;
+      color: white;
+      padding: 10px;
+      cursor: pointer;
+      font-size: 18px;
+    }
+
+    /* Thumbnail Images */
+    .thumbnails {
+      display: flex;
+      justify-content: center;
+      margin-top: 10px;
+      gap: 10px;
+      padding: 10px;
+    }
+
+    .thumbnail {
+      width: 80px;
+      height: 80px;
+      object-fit: cover;
+      cursor: pointer;
+      border: 2px solid #ddd;
+      transition: transform 0.3s ease-in-out;
+    }
+
+    .thumbnail:hover {
+      transform: scale(1.1);
+    }
+
+    /* Details Section */
+    .details {
+      padding: 20px;
+    }
+
+    .details h2 {
+      font-size: 18px;
+      font-weight: bold;
+    }
+
+    .details p {
+      margin-top: 10px;
+      color: #333;
+    }
+
+    .details .specs {
+      display: flex;
+      flex-direction: column;
+      margin-top: 10px;
+      gap: 8px;
+    }
+
+    .details .spec {
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .details .button {
+      background-color: #10b981;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+
+    .details .button:hover {
+      background-color: #059669;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      .thumbnail {
+        width: 70px;
+        height: 70px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container" id="product-container">
+    <!-- Products will be generated dynamically here -->
+  </div>
+
+  <script>
+    // Tablet data
+    const products = [
+      {
+        id: 1,
+        name: "iPad Air",
+        brand: "Apple",
+        model: "iPad Air 2022",
+        ram: "8GB",
+        storage: "256GB",
+        processor: "Apple M1",
+        screenSize: "10.9 inches",
+        batteryLife: "10 hours",
+        operatingSystem: "iPadOS",
+        description: "The Apple iPad Air with M1 chip delivers incredible performance with a vibrant 10.9-inch display, perfect for professionals and students alike.",
+        images: [
+          "https://tse3.mm.bing.net/th?id=OIP.EGnGildfcKFi9DMUxusA0AHaE8&pid=Api&P=0&h=220",
+          "https://images.anandtech.com/doci/8666/DSC_1798.jpg",
+          "https://trendblog.euronics.de/wp-content/uploads/2020/10/Apple-iPad-Air-4-Test-Profil-scaled.jpg"
+        ]
+      },
+      {
+        id: 2,
+        name: "Samsung Galaxy Tab S8",
+        brand: "Samsung",
+        model: "Galaxy Tab S8",
+        ram: "12GB",
+        storage: "512GB",
+        processor: "Qualcomm Snapdragon 8 Gen 1",
+        screenSize: "11 inches",
+        batteryLife: "13 hours",
+        operatingSystem: "Android 12",
+        description: "The Samsung Galaxy Tab S8 offers a powerful processor, sleek design, and extended battery life, ideal for productivity and entertainment on the go.",
+        images: [
+          "https://tse3.mm.bing.net/th?id=OIP.3A1eiziofWn27jeSHe2shQHaE4&pid=Api&P=0&h=220",
+          "https://tse4.mm.bing.net/th?id=OIP.X21yuTipu28UsHIqhMc4xwHaEK&pid=Api&P=0&h=220",
+          "https://tse1.mm.bing.net/th?id=OIP.QSe1hoThUsqkeylC4CSlLgHaFj&pid=Api&P=0&h=220"
+        ]
+      }
+    ];
+
+    // Function to generate product HTML
+    function generateProductHTML(product) {
+      return `
+        <div class="product">
+          <div class="image-slider">
+            ${product.images.map(image => `
+              <img class="slider-image" src="${image}" alt="${product.name}">
+            `).join('')}
+            <div class="slider-buttons">
+              <button class="prev-btn">&#10094;</button>
+              <button class="next-btn">&#10095;</button>
+            </div>
+          </div>
+          <div class="thumbnails">
+            ${product.images.map((image, index) => `
+              <img class="thumbnail" src="${image}" alt="Thumbnail ${index + 1}" data-index="${index}">
+            `).join('')}
+          </div>
+          <div class="details">
+            <h2>${product.name}</h2>
+            <div class="specs">
+              <div class="spec"><strong>Brand:</strong> ${product.brand}</div>
+              <div class="spec"><strong>Model:</strong> ${product.model}</div>
+              <div class="spec"><strong>RAM:</strong> ${product.ram}</div>
+              <div class="spec"><strong>Storage:</strong> ${product.storage}</div>
+              <div class="spec"><strong>Processor:</strong> ${product.processor}</div>
+              <div class="spec"><strong>Screen Size:</strong> ${product.screenSize}</div>
+              <div class="spec"><strong>Battery Life:</strong> ${product.batteryLife}</div>
+              <div class="spec"><strong>Operating System:</strong> ${product.operatingSystem}</div>
+            </div>
+            <hr>
+            <h2>Description</h2>
+            <p>${product.description}</p>
+            <a href="http://localhost/WEB_PROJECT/placeorder.php?product=${product.id}&price=${product.price}&name=${encodeURIComponent(product.name)}" class="button">BUY NOW</a>
+          </div>
+        </div>
+      `;
+    }
+
+    // Function to render all products
+    function renderProducts() {
+      const productContainer = document.getElementById('product-container');
+      productContainer.innerHTML = products.map(generateProductHTML).join('');
+      
+      // Add functionality for each product's slider and thumbnails
+      const allSliders = document.querySelectorAll('.image-slider');
+      allSliders.forEach((slider, productIndex) => {
+        const images = slider.querySelectorAll('.slider-image');
+        const prevButton = slider.querySelector('.prev-btn');
+        const nextButton = slider.querySelector('.next-btn');
+        const thumbnails = slider.nextElementSibling.querySelectorAll('.thumbnail');
+        let currentImageIndex = 0;
+
+        function updateSlider() {
+          images.forEach((img, index) => {
+            img.style.transform = `translateX(${(index - currentImageIndex) * 100}%)`;
+          });
+        }
+
+        prevButton.addEventListener('click', () => {
+          currentImageIndex = (currentImageIndex - 1 + images.length) % images.length;
+          updateSlider();
+        });
+
+        nextButton.addEventListener('click', () => {
+          currentImageIndex = (currentImageIndex + 1) % images.length;
+          updateSlider();
+        });
+
+        thumbnails.forEach((thumbnail, index) => {
+          thumbnail.addEventListener('click', () => {
+            currentImageIndex = index;
+            updateSlider();
+          });
+        });
+
+        updateSlider();
+      });
+    }
+
+    // Render the products on page load
+    renderProducts();
+  </script>
+
+</body>
+</html>

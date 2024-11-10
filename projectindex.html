@@ -1,0 +1,310 @@
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>ReBuy - College Project</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet"/>
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #f7fafc;
+            margin: 0;
+            padding: 0;
+        }
+        .navbar {
+            background-color: #ffffff;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        .navbar .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #38a169;
+            text-decoration: none;
+        }
+        .navbar ul {
+            list-style: none;
+            display: flex;
+            margin: 0;
+            padding: 0;
+        }
+        .navbar ul li {
+            margin: 0 10px;
+        }
+        .navbar ul li a {
+            text-decoration: none;
+            color: #4a5568;
+            font-weight: 500;
+            padding: 8px 16px;
+            border-radius: 4px;
+            transition: background-color 0.3s, color 0.3s;
+        }
+        .navbar ul li a:hover {
+            background-color: #38a169;
+            color: #ffffff;
+        }
+        .navbar .icons a {
+            text-decoration: none;
+            color: #4a5568;
+            margin: 0 10px;
+            font-size: 1.25rem;
+            transition: color 0.3s;
+        }
+        .navbar .icons a:hover {
+            color: #38a169;
+        }
+        .hero {
+            background-color: #38a169;
+            color: #ffffff;
+            text-align: center;
+            padding: 60px 20px;
+        }
+        .hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+        .hero p {
+            font-size: 1.125rem;
+            margin-bottom: 40px;
+        }
+        .hero a {
+            background-color: #ffffff;
+            color: #38a169;
+            padding: 10px 20px;
+            border-radius: 9999px;
+            font-weight: bold;
+            text-decoration: none;
+        }
+        .section {
+            padding: 60px 20px;
+        }
+        .section h2 {
+            font-size: 2rem;
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        .grid {
+            display: grid;
+            gap: 20px;
+        }
+        .grid-4 {
+            grid-template-columns: repeat(1, 1fr);
+        }
+        @media (min-width: 768px) {
+            .grid-4 {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        @media (min-width: 1024px) {
+            .grid-4 {
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
+        .card {
+            background-color: #ffffff;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        .card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+        .card .content {
+            padding: 20px;
+        }
+        .card h3 {
+            font-size: 1.25rem;
+            margin-bottom: 10px;
+        }
+        .card p {
+            color: #4a5568;
+            margin-bottom: 20px;
+        }
+        .card a {
+            background-color: #38a169;
+            color: #ffffff;
+            padding: 10px 20px;
+            border-radius: 9999px;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .how-it-works {
+            background-color: #edf2f7;
+        }
+        .how-it-works .grid-3 {
+            grid-template-columns: repeat(1, 1fr);
+        }
+        @media (min-width: 768px) {
+            .how-it-works .grid-3 {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+        .how-it-works .card {
+            text-align: center;
+            padding: 40px 20px;
+        }
+        .how-it-works .card i {
+            color: #38a169;
+            font-size: 2rem;
+            margin-bottom: 20px;
+        }
+        .testimonials .grid-3 {
+            grid-template-columns: repeat(1, 1fr);
+        }
+        @media (min-width: 768px) {
+            .testimonials .grid-3 {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        @media (min-width: 1024px) {
+            .testimonials .grid-3 {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+        .testimonials .card {
+            text-align: center;
+            padding: 40px 20px;
+        }
+        .testimonials .card img {
+            width: 100px;
+            height: 100px;
+            border-radius: 9999px;
+            margin-bottom: 20px;
+        }
+        .footer {
+            background-color: #2d3748;
+            color: #ffffff;
+            text-align: center;
+            padding: 20px;
+        }
+        .footer a {
+            color: #ffffff;
+            margin: 0 10px;
+            text-decoration: none;
+        }
+        .footer a:hover {
+            color: #38a169;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <a class="logo" href="#">ReBuy</a>
+        <ul>
+            <li><a href="http://localhost/web_project/projectindex.html
+                ">Home</a></li>
+            <li><a href="http://localhost/web_project/faqs.html">FAQs</a></li>
+            <li><a href="http://localhost/web_project/feedback.html">Feedback</a></li>
+            <li><a href="http://localhost/WEB_PROJECT/about.html">About Us</a></li>
+           
+        </ul>
+        
+    </nav>
+    <!-- Hero Section -->
+    <section class="hero">
+        <h1>Welcome to ReBuy</h1>
+        <p>Buy and sell pre-owned electronics with ease</p>
+        
+    </section>
+    <!-- Featured Products -->
+    <section class="section">
+        <h2>Featured Products</h2>
+        <div class="grid grid-4">
+            <div class="card">
+                <img src="https://storage.googleapis.com/a1aa/image/Y1cfoslFIGyFO6t63gLFU6hUzFKUS6GIV6pa70JRbEKpmd3JA.jpg" alt="Placeholder image of a smartphone"/>
+                <div class="content">
+                    <h3>Smartphone</h3>
+                    <p>High-quality pre-owned smartphone</p>
+                    <a href="ptorphone.html">Buy Now</a>
+                </div>
+            </div>
+            <div class="card">
+                <img src="https://storage.googleapis.com/a1aa/image/5HkOCRe98I0wFCnefKxI1lQUgA0GBvvHSuC2T8qvmYLga2dnA.jpg" alt="Placeholder image of a laptop"/>
+                <div class="content">
+                    <h3>Laptop</h3>
+                    <p>Reliable pre-owned laptop</p>
+                    <a href="ptorlaptop.html">Buy Now</a>
+                </div>
+            </div>
+            <div class="card">
+                <img src="https://storage.googleapis.com/a1aa/image/A2ox00qEiVo2Ll1sxcgfyMsdzcVNdgPk8YmZBFyHqIlomd3JA.jpg" alt="Placeholder image of a tablet"/>
+                <div class="content">
+                    <h3>Tablet</h3>
+                    <p>Affordable pre-owned tablet</p>
+                    <a href="ptortablets.html">Buy Now</a>
+                </div>
+            </div>
+            <div class="card">
+                <img src="https://storage.googleapis.com/a1aa/image/MFRBlm9ZHYIYDtYlU72pHQn2RRRE5aHBN7fxgEDSVaSqmd3JA.jpg" alt="Placeholder image of a smartwatch"/>
+                <div class="content">
+                    <h3>Smartwatch</h3>
+                    <p>Stylish pre-owned smartwatch</p>
+                    <a href="ptorsmartwatch.html">Buy Now</a>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- How It Works -->
+    <section class="section how-it-works">
+        <h2>How It Works</h2>
+        <div class="grid grid-3">
+            <div class="card">
+                <i class="fas fa-search"></i>
+                <h3>Find Your Product</h3>
+                <p>Browse our extensive catalog of pre-owned electronics.</p>
+            </div>
+            <div class="card">
+                <i class="fas fa-shopping-cart"></i>
+                <h3>Make a Purchase</h3>
+                <p>Easily purchase your chosen product through our secure platform.</p>
+            </div>
+            <div class="card">
+                <i class="fas fa-truck"></i>
+                <h3>Fast Delivery</h3>
+                <p>Receive your product quickly with our reliable delivery service.</p>
+            </div>
+        </div>
+    </section>
+    <!-- Testimonials -->
+    <section class="section testimonials">
+        <h2>What Our Customers Say</h2>
+        <div class="grid grid-3">
+            <div class="card">
+                <img src="https://flxt.tmsimg.com/assets/1443_v9_bc.jpg" alt="Placeholder image of a customer"/>
+                <h3>John Wick</h3>
+                <p>"ReBuy made it so easy to find a great deal on a pre-owned smartphone. Highly recommend!"</p>
+            </div>
+            <div class="card">
+                <img src="https://www.sheknows.com/wp-content/uploads/2018/08/d0efd7d9f506a089ee5d.jpeg" alt="Placeholder image of a customer"/>
+                <h3>shashank singh</h3>
+                <p>"I was able to sell my old laptop quickly and easily. Great service!"</p>
+            </div>
+            <div class="card">
+                <img src="https://storage.googleapis.com/a1aa/image/4BxUDydeotVHBK5Q72fehef9qS26oOGRXTG7xSLdUfbQVzu7E.jpg" alt="Placeholder image of a customer"/>
+                <h3>Rajesh Shrivastva</h3>
+                <p>"The delivery was fast and the product was in excellent condition. Very satisfied!"</p>
+            </div>
+        </div>
+    </section>
+    <!-- Footer -->
+    <footer class="footer">
+        <p>© 2024 ReBuy. All rights reserved.</p>
+        <div class="flex justify-center space-x-4 mt-4">
+            <a href="#"><i class="fab fa-facebook-f"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-linkedin-in"></i></a>
+        </div>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Laptop Product Listing</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f3f4f6;
+      margin: 0;
+      padding: 0;
+    }
+
+    .container {
+      max-width: 1024px;
+      margin: 50px auto;
+      background-color: #fff;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      border-radius: 8px;
+      overflow: hidden;
+    }
+
+    .product {
+      margin: 30px 0;
+      padding: 20px;
+      border-bottom: 1px solid #ddd;
+    }
+
+    .image-slider {
+      position: relative;
+      width: 100%;
+      display: flex;
+      overflow: hidden;
+      height: 400px; 
+    }
+
+    .slider-image {
+      width: 100%;
+      object-fit: contain;
+      flex-shrink: 0; 
+      transition: transform 0.3s ease-in-out;
+    }
+
+    .slider-buttons {
+      position: absolute;
+      top: 50%;
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      transform: translateY(-50%);
+      padding: 0 20px;
+    }
+
+    .slider-buttons button {
+      background-color: rgba(0, 0, 0, 0.5);
+      border: none;
+      color: white;
+      padding: 10px;
+      cursor: pointer;
+      font-size: 18px;
+    }
+
+    /* Thumbnail Images */
+    .thumbnails {
+      display: flex;
+      justify-content: center;
+      margin-top: 10px;
+      gap: 10px;
+      padding: 10px;
+    }
+
+    .thumbnail {
+      width: 80px;
+      height: 80px;
+      object-fit: cover;
+      cursor: pointer;
+      border: 2px solid #ddd;
+      transition: transform 0.3s ease-in-out;
+    }
+
+    .thumbnail:hover {
+      transform: scale(1.1);
+    }
+
+    /* Details Section */
+    .details {
+      padding: 20px;
+    }
+
+    .details h2 {
+      font-size: 18px;
+      font-weight: bold;
+    }
+
+    .details p {
+      margin-top: 10px;
+      color: #333;
+    }
+
+    .details .specs {
+      display: flex;
+      flex-direction: column;
+      margin-top: 10px;
+      gap: 8px;
+    }
+
+    .details .spec {
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .details .button {
+      background-color: #10b981;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+
+    .details .button:hover {
+      background-color: #059669;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      .thumbnail {
+        width: 70px;
+        height: 70px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container" id="product-container">
+    <!-- Products will be generated dynamically here -->
+  </div>
+
+  <script>
+    // Laptop data
+    const products = [
+      {
+        id: 1,
+        name: "Dell XPS 13",
+        brand: "Dell",
+        model: "XPS 13 9310",
+        ram: "16GB",
+        storage: "512GB SSD",
+        processor: "Intel Core i7-1185G7",
+        screenSize: "13.4 inches",
+        operatingSystem: "Windows 11 Home",
+        description: "The Dell XPS 13 offers a stunning display, excellent build quality, and powerful performance for professionals.",
+        price: 1200,
+        images: [
+          "https://tse4.mm.bing.net/th?id=OIP.a3EhepwKuXpFXxoEjsZH1wHaE-&pid=Api&P=0&h=220",
+          "https://www.asifcomputers.com/wp-content/uploads/2022/08/DELL-XPS-PLUS-04-min.jpg",
+          "https://computermania-bd.b-cdn.net/wp-content/uploads/Dell-XPS-13-Plus-3-1.jpg"
+        ]
+      },
+      {
+        id: 2,
+        name: "MacBook Pro 14",
+        brand: "Apple",
+        model: "MacBook Pro 14-inch",
+        ram: "16GB",
+        storage: "1TB SSD",
+        processor: "Apple M1 Pro",
+        screenSize: "14 inches",
+        operatingSystem: "macOS",
+        description: "The Apple MacBook Pro 14-inch with M1 Pro chip is designed for demanding creative tasks, offering incredible speed and a fantastic display.",
+        price: 2500,
+        images: [
+          "https://cdn.mos.cms.futurecdn.net/ybU2vqdV6MSB37mSwuVEvV.jpg",
+          "https://external-preview.redd.it/apple-macbook-pro-14-2023-m3-review-the-base-model-now-v0-YT2sNBCYXIfUsbRuWR_vw0N2bSn9iU6RLHOzHrH5dY4.jpg?auto=webp&s=50ca6f237e976a0ae0b26b0e5fd0dec9fc9910d1",
+          "https://www.cnet.com/a/img/resize/744ffe800ebfcf37a46faba935674ae68403efa0/hub/2021/10/23/80425069-0d3e-4c67-9085-a66e6177fc60/macbook-pro-2021-cnet-review-12.jpg?auto=webp&width=1200"
+        ]
+      }
+    ];
+
+    // Function to generate product HTML
+    function generateProductHTML(product) {
+      return `
+        <div class="product">
+          <div class="image-slider">
+            ${product.images.map(image => `
+              <img class="slider-image" src="${image}" alt="${product.name}">
+            `).join('')}
+            <div class="slider-buttons">
+              <button class="prev-btn">&#10094;</button>
+              <button class="next-btn">&#10095;</button>
+            </div>
+          </div>
+          <div class="thumbnails">
+            ${product.images.map((image, index) => `
+              <img class="thumbnail" src="${image}" alt="Thumbnail ${index + 1}" data-index="${index}">
+            `).join('')}
+          </div>
+          <div class="details">
+            <h2>${product.name}</h2>
+            <div class="specs">
+              <div class="spec"><strong>Brand:</strong> ${product.brand}</div>
+              <div class="spec"><strong>Model:</strong> ${product.model}</div>
+              <div class="spec"><strong>RAM:</strong> ${product.ram}</div>
+              <div class="spec"><strong>Storage:</strong> ${product.storage}</div>
+              <div class="spec"><strong>Processor:</strong> ${product.processor}</div>
+              <div class="spec"><strong>Screen Size:</strong> ${product.screenSize}</div>
+              <div class="spec"><strong>Operating System:</strong> ${product.operatingSystem}</div>
+            </div>
+            <hr>
+            <h2>Description</h2>
+            <p>${product.description}</p>
+            <a href="http://localhost/WEB_PROJECT/placeorder.php?product=${product.id}&price=${product.price}&name=${encodeURIComponent(product.name)}" class="button">BUY NOW</a>
+          </div>
+        </div>
+      `;
+    }
+
+    // Function to render all products
+    function renderProducts() {
+      const productContainer = document.getElementById('product-container');
+      productContainer.innerHTML = products.map(generateProductHTML).join('');
+
+      // Adding functionality for each product's slider and thumbnails
+      const allSliders = document.querySelectorAll('.image-slider');
+      allSliders.forEach((slider, productIndex) => {
+        const images = slider.querySelectorAll('.slider-image');
+        const prevButton = slider.querySelector('.prev-btn');
+        const nextButton = slider.querySelector('.next-btn');
+        const thumbnails = slider.nextElementSibling.querySelectorAll('.thumbnail');
+        let currentImageIndex = 0;
+
+        function updateSlider() {
+          images.forEach((img, index) => {
+            img.style.transform = `translateX(${(index - currentImageIndex) * 100}%)`;
+          });
+        }
+
+        prevButton.addEventListener('click', () => {
+          currentImageIndex = (currentImageIndex - 1 + images.length) % images.length;
+          updateSlider();
+        });
+
+        nextButton.addEventListener('click', () => {
+          currentImageIndex = (currentImageIndex + 1) % images.length;
+          updateSlider();
+        });
+
+        thumbnails.forEach((thumbnail, index) => {
+          thumbnail.addEventListener('click', () => {
+            currentImageIndex = index;
+            updateSlider();
+          });
+        });
+
+        updateSlider();
+      });
+    }
+
+    // Render the products on page load
+    renderProducts();
+  </script>
+
+</body>
+</html>

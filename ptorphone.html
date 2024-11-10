@@ -1,0 +1,279 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Product Listing</title>
+  <style>
+    /* Basic reset and layout */
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f3f4f6;
+      margin: 0;
+      padding: 0;
+    }
+
+    .container {
+      max-width: 1024px;
+      margin: 50px auto;
+      background-color: #fff;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      border-radius: 8px;
+      overflow: hidden;
+    }
+
+    .product {
+      margin: 30px 0;
+      padding: 20px;
+      border-bottom: 1px solid #ddd;
+    }
+
+    /* Image Slider */
+    .image-slider {
+      position: relative;
+      width: 100%;
+    }
+
+    .slider-buttons {
+      position: absolute;
+      top: 50%;
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      transform: translateY(-50%);
+      padding: 0 20px;
+    }
+
+    .slider-buttons button {
+      background-color: rgba(0, 0, 0, 0.5);
+      border: none;
+      color: white;
+      padding: 10px;
+      cursor: pointer;
+      font-size: 18px;
+    }
+
+    .slider-image {
+      width: 100%;
+      object-fit: contain;
+      height: 400px;
+    }
+
+    /* Thumbnail Images */
+    .thumbnails {
+      display: flex;
+      justify-content: center;
+      margin-top: 10px;
+      gap: 10px;
+      padding: 10px;
+    }
+
+    .thumbnail {
+      width: 80px;
+      height: 80px;
+      object-fit: cover;
+      cursor: pointer;
+      border: 2px solid #ddd;
+      transition: transform 0.3s ease-in-out;
+    }
+
+    .thumbnail:hover {
+      transform: scale(1.1);
+    }
+
+    /* Details Section */
+    .details {
+      padding: 20px;
+    }
+
+    .details h2 {
+      font-size: 18px;
+      font-weight: bold;
+    }
+
+    .details p {
+      margin-top: 10px;
+      color: #333;
+    }
+
+    .details .specs {
+      display: flex;
+      flex-direction: column;
+      margin-top: 10px;
+      gap: 8px;
+    }
+
+    .details .spec {
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .details .button {
+      background-color: #10b981;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+
+    .details .button:hover {
+      background-color: #059669;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      .thumbnail {
+        width: 70px;
+        height: 70px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container" id="product-container">
+    <!-- Products will be generated dynamically here -->
+  </div>
+
+  <script>
+    // Product data
+    const products = [
+      {
+        id: 1,
+        name: "Redmi Note 11S",
+        brand: "Mi",
+        model: "Note 11S",
+        ram: "6GB",
+        storage: "128GB",
+        processor: "MediaTek Helio G96",
+        description: "Selling my Redmi Note 11S in good condition, well-maintained, it's like a new phone. All accessories and box are available.",
+        images: [
+          "https://welectronics.com/images/stories/virtuemart/product/71T-z0twRpL._SL1500_.jpg",
+          "https://fdn.gsmarena.com/imgroot/reviews/22/xiaomi-redmi-note-11s-5g/lifestyle/-1024w2/gsmarena_006.jpg",
+          "https://tse4.mm.bing.net/th?id=OIP.srveY9RX80Hvb5p-GmrWXAHaE7&pid=Api&P=0&h=220"
+        ]
+      },
+      {
+        id: 2,
+        name: "Samsung Galaxy S20",
+        brand: "Samsung",
+        model: "Galaxy S20",
+        ram: "8GB",
+        storage: "128GB",
+        processor: "Exynos 990",
+        description: "Brand new Samsung Galaxy S20, still in the box, with all accessories included.",
+        images: [
+          "https://tse2.mm.bing.net/th?id=OIP.HPntD_PioP3Yr1gTq13JwAHaFj&pid=Api&P=0&h=220",
+          "https://cdn.wccftech.com/wp-content/uploads/2020/02/Galaxy-S20-Plus-10-1536x1024.jpg",
+          "https://www.starcity.pk/wp-content/uploads/2022/08/samsung-s20-6-800x800.jpg"
+        ]
+      },
+      {
+        id: 3,
+        name: "Apple iPhone 13",
+        brand: "Apple",
+        model: "iPhone 13",
+        ram: "4GB",
+        storage: "128GB",
+        processor: "Apple A15 Bionic",
+        description: "A brand new Apple iPhone 13 in excellent condition. Comes with original box and accessories.",
+        images: [
+          "https://pisces.bbystatic.com/image2/BestBuy_US/images/products/6443/6443062cv13d.jpg",
+          "https://fdn.gsmarena.com/imgroot/news/21/10/iphone-13-series-pre-orders-second-wave/-1200w5/gsmarena_003.jpg",
+          "https://tse3.mm.bing.net/th?id=OIP.8CoYV4PC1ttjYG5UVWDm0wHaER&pid=Api&P=0&h=220"
+        ]
+      },
+      {
+        id: 4,
+        name: "OnePlus 9 Pro",
+        brand: "OnePlus",
+        model: "9 Pro",
+        ram: "12GB",
+        storage: "256GB",
+        processor: "Snapdragon 888",
+        description: "OnePlus 9 Pro in great condition, with a 120Hz display and excellent camera performance.",
+        images: [
+          "https://tse2.mm.bing.net/th?id=OIP.paOS7D-lU1j8M74G8po4igHaHI&pid=Api&P=0&h=220",
+          "https://tse4.mm.bing.net/th?id=OIP.r_Pkx5CbQaY87KRrhzpf3gAAAA&pid=Api&P=0&h=220",
+          "https://tse2.mm.bing.net/th?id=OIP.FpwsRmRsAxx79u2IzG3mCgHaDd&pid=Api&P=0&h=220"
+        ]
+      }
+    ];
+
+    // Function to generate product HTML
+    function generateProductHTML(product) {
+      return `
+        <div class="product">
+          <div class="image-slider">
+            <div class="slider-buttons">
+              <button class="prev-btn">&#10094;</button>
+              <button class="next-btn">&#10095;</button>
+            </div>
+            <img class="slider-image" src="${product.images[0]}" alt="${product.name}">
+          </div>
+          <div class="thumbnails">
+            ${product.images.map((image, index) => `
+              <img class="thumbnail" src="${image}" alt="Thumbnail ${index + 1}" data-index="${index}">
+            `).join('')}
+          </div>
+          <div class="details">
+            <h2>${product.name}</h2>
+            <div class="specs">
+              <div class="spec"><strong>Brand:</strong> ${product.brand}</div>
+              <div class="spec"><strong>Model:</strong> ${product.model}</div>
+              <div class="spec"><strong>RAM:</strong> ${product.ram}</div>
+              <div class="spec"><strong>Storage:</strong> ${product.storage}</div>
+              <div class="spec"><strong>Processor:</strong> ${product.processor}</div>
+            </div>
+            <hr>
+            <h2>Description</h2>
+            <p>${product.description}</p>
+            <a href="http://localhost/WEB_PROJECT/placeorder.php?product=${product.id}&price=${product.price}&name=${encodeURIComponent(product.name)}" class="button">BUY NOW</a>
+          </div>
+        </div>
+      `;
+    }
+
+    // Function to render all products
+    function renderProducts() {
+      const productContainer = document.getElementById('product-container');
+      productContainer.innerHTML = products.map(generateProductHTML).join('');
+      
+      // Add functionality for each product's slider and thumbnails
+      const allSliders = document.querySelectorAll('.image-slider');
+      allSliders.forEach((slider, productIndex) => {
+        const images = products[productIndex].images;
+        const mainImage = slider.querySelector('.slider-image');
+        const prevButton = slider.querySelector('.prev-btn');
+        const nextButton = slider.querySelector('.next-btn');
+        const thumbnails = slider.nextElementSibling.querySelectorAll('.thumbnail');
+        let currentImageIndex = 0;
+
+        prevButton.addEventListener('click', () => {
+          currentImageIndex = (currentImageIndex - 1 + images.length) % images.length;
+          mainImage.src = images[currentImageIndex];
+        });
+
+        nextButton.addEventListener('click', () => {
+          currentImageIndex = (currentImageIndex + 1) % images.length;
+          mainImage.src = images[currentImageIndex];
+        });
+
+        thumbnails.forEach((thumbnail, index) => {
+          thumbnail.addEventListener('click', () => {
+            currentImageIndex = index;
+            mainImage.src = images[currentImageIndex];
+          });
+        });
+      });
+    }
+
+    // Render the products on page load
+    renderProducts();
+  </script>
+
+</body>
+</html>

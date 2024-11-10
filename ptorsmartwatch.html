@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Smartwatch Listing</title>
+  <style>
+    /* Basic reset and layout */
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f3f4f6;
+      margin: 0;
+      padding: 0;
+    }
+
+    .container {
+      max-width: 1024px;
+      margin: 50px auto;
+      background-color: #fff;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      border-radius: 8px;
+      overflow: hidden;
+    }
+
+    .product {
+      margin: 30px 0;
+      padding: 20px;
+      border-bottom: 1px solid #ddd;
+    }
+
+    /* Image Slider */
+    .image-slider {
+      position: relative;
+      width: 100%;
+    }
+
+    .slider-buttons {
+      position: absolute;
+      top: 50%;
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      transform: translateY(-50%);
+      padding: 0 20px;
+    }
+
+    .slider-buttons button {
+      background-color: rgba(0, 0, 0, 0.5);
+      border: none;
+      color: white;
+      padding: 10px;
+      cursor: pointer;
+      font-size: 18px;
+    }
+
+    .slider-image {
+      width: 100%;
+      object-fit: contain;
+      height: 300px;
+    }
+
+    /* Thumbnail Images */
+    .thumbnails {
+      display: flex;
+      justify-content: center;
+      margin-top: 10px;
+      gap: 10px;
+      padding: 10px;
+    }
+
+    .thumbnail {
+      width: 80px;
+      height: 80px;
+      object-fit: cover;
+      cursor: pointer;
+      border: 2px solid #ddd;
+      transition: transform 0.3s ease-in-out;
+    }
+
+    .thumbnail:hover {
+      transform: scale(1.1);
+    }
+
+    /* Details Section */
+    .details {
+      padding: 20px;
+    }
+
+    .details h2 {
+      font-size: 18px;
+      font-weight: bold;
+    }
+
+    .details p {
+      margin-top: 10px;
+      color: #333;
+    }
+
+    .details .flex {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 10px;
+    }
+
+    .details .button {
+      background-color: #10b981;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .details .button:hover {
+      background-color: #059669;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container" id="product-container">
+    <!-- Smartwatches will be generated dynamically here -->
+  </div>
+
+  <script>
+    // Smartwatch data
+    const smartwatches = [
+      {
+        id: 1,
+        name: "Apple Watch Series 8",
+        brand: "Apple",
+        model: "Series 8",
+        display: "1.78-inch OLED",
+        batteryLife: "18 hours",
+        features: ["Heart Rate Monitor", "GPS", "ECG", "Water Resistant"],
+        price: "$399",
+        images: [
+          "https://tse2.mm.bing.net/th?id=OIP.qVJv8V8pOIlA2IuCS_eOiAHaHa&pid=Api&P=0&h=220",
+          "https://cdn.mos.cms.futurecdn.net/qeL7SfLGo8o7EHH3RYAes3.jpg",
+          "https://eezepc.com/wp-content/uploads/2022/09/Series8-41MM-EEZEPC-4.jpg"
+        ]
+      },
+      {
+        id: 2,
+        name: "Samsung Galaxy Watch 5",
+        brand: "Samsung",
+        model: "Galaxy Watch 5",
+        display: "1.4-inch AMOLED",
+        batteryLife: "24 hours",
+        features: ["SpO2", "GPS", "Sleep Tracking", "Water Resistant"],
+        price: "$279",
+        images: [
+          "https://www.techadvisor.com/wp-content/uploads/2022/08/Samsung-Galaxy-Watch-5-Pro_review_11.jpg?quality=50&strip=all&w=1024",
+          "https://best-magazin.com/image/cache/catalog/product/sportivnye-chasy/samsung/smart-chasy-samsung-galaxy-watch-5-pro-gray-titanium-kupit-800x800.jpg",
+          "https://cdn.mos.cms.futurecdn.net/E49fWx37LSfiRwjL8DoBvJ-1200-80.jpg"
+        ]
+      },
+      {
+        id: 3,
+        name: "Garmin Venu 2",
+        brand: "Garmin",
+        model: "Venu 2",
+        display: "1.3-inch AMOLED",
+        batteryLife: "11 days",
+        features: ["GPS", "Heart Rate Monitor", "Sleep Tracking", "Music Storage"],
+        price: "$399",
+        images: [
+          "https://tse3.mm.bing.net/th?id=OIP._xf_mrEJn-slU9P0fI_hngHaEK&pid=Api&P=0&h=220",
+          "https://s3.amazonaws.com/images.gearjunkie.com/uploads/2022/12/Garmin-Venu-2-Plus-review-1676x1117.jpg",
+          "https://www.techadvisor.com/wp-content/uploads/2022/07/Garmin-Venu-2-Plus-review-2.jpeg?quality=50&strip=all"
+        ]
+      }
+    ];
+
+    // Function to generate smartwatch HTML
+    function generateSmartwatchHTML(watch) {
+      return `
+        <div class="product">
+          <div class="image-slider">
+            <div class="slider-buttons">
+              <button class="prev-btn">&#10094;</button>
+              <button class="next-btn">&#10095;</button>
+            </div>
+            <img class="slider-image" src="${watch.images[0]}" alt="${watch.name}">
+          </div>
+          <div class="thumbnails">
+            ${watch.images.map((image, index) => `
+              <img class="thumbnail" src="${image}" alt="Thumbnail ${index + 1}" data-index="${index}">
+            `).join('')}
+          </div>
+          <div class="details">
+            <h2>${watch.name}</h2>
+            <div class="flex">
+              <div><strong>Brand</strong></div>
+              <div>${watch.brand}</div>
+            </div>
+            <div class="flex">
+              <div><strong>Model</strong></div>
+              <div>${watch.model}</div>
+            </div>
+            <div class="flex">
+              <div><strong>Display</strong></div>
+              <div>${watch.display}</div>
+            </div>
+            <div class="flex">
+              <div><strong>Battery Life</strong></div>
+              <div>${watch.batteryLife}</div>
+            </div>
+            <div class="flex">
+              <div><strong>Features</strong></div>
+              <div>${watch.features.join(", ")}</div>
+            </div>
+            <div class="flex">
+              <div><strong>Price</strong></div>
+              <div>${watch.price}</div>
+            </div>
+            <a href="http://localhost/WEB_PROJECT/placeorder.php?product=${watch.id}&price=${encodeURIComponent(watch.price)}&name=${encodeURIComponent(watch.name)}" class="button">BUY NOW</a>
+          </div>
+        </div>
+      `;
+    }
+
+    // Function to render all smartwatches
+    function renderSmartwatches() {
+      const productContainer = document.getElementById('product-container');
+      productContainer.innerHTML = smartwatches.map(generateSmartwatchHTML).join('');
+      
+      // Add functionality for each smartwatch's slider and thumbnails
+      const allSliders = document.querySelectorAll('.image-slider');
+      allSliders.forEach((slider, productIndex) => {
+        const images = smartwatches[productIndex].images;
+        const mainImage = slider.querySelector('.slider-image');
+        const prevButton = slider.querySelector('.prev-btn');
+        const nextButton = slider.querySelector('.next-btn');
+        const thumbnails = slider.nextElementSibling.querySelectorAll('.thumbnail');
+        let currentImageIndex = 0;
+
+        prevButton.addEventListener('click', () => {
+          currentImageIndex = (currentImageIndex - 1 + images.length) % images.length;
+          mainImage.src = images[currentImageIndex];
+        });
+
+        nextButton.addEventListener('click', () => {
+          currentImageIndex = (currentImageIndex + 1) % images.length;
+          mainImage.src = images[currentImageIndex];
+        });
+
+        thumbnails.forEach((thumbnail, index) => {
+          thumbnail.addEventListener('click', () => {
+            currentImageIndex = index;
+            mainImage.src = images[currentImageIndex];
+          });
+        });
+      });
+    }
+
+    // Render the smartwatches on page load
+    renderSmartwatches();
+  </script>
+
+</body>
+</html>
